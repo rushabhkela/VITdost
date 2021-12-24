@@ -1,0 +1,84 @@
+<div class="container-fluid">
+    <div class="row no-gutter">
+        <div class="col-md-12">
+            <div class="login d-flex align-items-center py-5">
+
+                <!-- Demo content-->
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-10 col-xl-7 mx-auto">
+                            <h3 class="display-4">Create Your Account</h3>
+                            <p class="text-muted mb-4">Please enter the following details.</p>
+                            <form method="POST" action="/users/register">
+                                <div class="form-group mb-3">
+                                    <input id="email" name="name" type="text" placeholder="Name" required=""
+                                        autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="contact" type="number" placeholder="Contact" required=""
+                                        class="form-control rounded-pill border-0 shadow-sm px-4">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input id="email" name="email" type="email" placeholder="Email address" required=""
+                                        class="form-control rounded-pill border-0 shadow-sm px-4">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input id="inputPassword" name="password" type="password" placeholder="Password"
+                                        required=""
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+
+                                <br>
+                                <p class="text-muted mb-4">Social Media Links <i>(Optional)</i></p>
+                                <div class="form-group mb-3">
+                                    <input name="linkedin" type="text" placeholder="LinkedIn Profile"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="twitter" type="text" placeholder="Twitter Profile"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="instagram" type="text" placeholder="Instagram Profile"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="facebook" type="text" placeholder="Facebook Profile"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-primary">
+                                </div>
+
+                                <br>
+                                <p class="text-muted mb-4">Technical Domains <i>(Optional)</i></p>
+                                <div class="form-group mb-3">
+                                    <input name="github" type="text" placeholder="Github"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-success">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="cf" type="text" placeholder="Codeforces"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-success">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="cc" type="text" placeholder="Codechef"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-success">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <input name="lc" type="text" placeholder="Leetcode"
+                                        class="form-control rounded-pill border-0 shadow-sm px-4 text-success">
+                                </div>
+                                <br>
+                                <button type="submit"
+                                    class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" style="font-size: larger;">Sign up</button>
+                                <div class="text-center d-flex justify-content-between mt-4">
+                                    <p>Already have an account? <a href="/users/login" class="font-italic text-muted">
+                                            <u>Login</u></a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- End -->
+
+            </div>
+        </div><!-- End -->
+
+    </div>
+</div>

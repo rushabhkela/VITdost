@@ -1,0 +1,138 @@
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Library</h1>
+            
+        </div>
+    </div>
+    <img src="/images/library.jpeg" alt="library-banner" style="width: 100%;">
+</section>
+
+<div class="album py-5 bg-light">
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            {{#each courses}}
+            <div class="col">
+                <div class="card shadow-sm">
+                    <div class="container-fluid py-5 bg-dark mb-4 bg-light">
+                        <h1 id="gpa" class="display-1 fw-bold" style="color:white; text-align:center">{{this.courseCode}}</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{this.courseCode}} - {{this.courseName}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="">
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#book-{{this.courseCode}}"><b>Books</b></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#pyqs-{{this.courseCode}}"><b>Past Year Papers</b></button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                                    data-bs-target="#addnew-{{this.courseCode}}"><b>Add New +</b></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="book-{{this.courseCode}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Books</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px;">
+                            <ul style="color: black;">
+                                {{#each this.books}}
+                                <li>Book - <a href="{{this.location}}">Link</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="pyqs-{{this.courseCode}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Past Year Papers</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px;">
+                            {{#each this.papers}}
+                                <li>Paper - <a href="{{this.location}}">Link</a></li>
+                            {{/each}}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="addnew-{{this.courseCode}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Add New + </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/library/{{this.courseCode}}/upload" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name">
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bookOrPaper" value="1"
+                                        id="bookOrPaper1" checked>
+                                    <label class="form-check-label" for="bookOrPaper1">
+                                        Book
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="bookOrPaper" value="2"
+                                        id="bookOrPaper2">
+                                    <label class="form-check-label" for="bookOrPaper2">
+                                        Past Year Papers
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" name="file" id="file">
+                                    <label class="input-group-text" for="file">Upload</label>
+                                </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Save</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+
+<br>
+<div class="container">
+    <h2>Add a New Course</h2>
+    <small>Submit the course details. Once verified, the course will be available on the website.</small>
+    <form action="/library/addnewcourse" method="POST">
+        <div class="row">
+            <div class="col col-lg-4">
+                <input type="text" class="form-control" name="coursecode" placeholder="Course Code">
+                <br>
+                <input type="text" class="form-control" name="coursename" placeholder="Course Name">
+                <br>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+
+    </form>
+</div>

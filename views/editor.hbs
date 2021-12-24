@@ -1,0 +1,199 @@
+<div class="container" style="margin-left: 8px;">
+    <br>
+    <div>
+        <form id="form1" method="post">
+            <div class="row">
+                <div class="col-sm-9 col-xs-2"
+                    style="border: 2px solid black; height: 100%; width:72%">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4 form-group" style="font-size: 25px;">
+                            <p>Language <select onchange="selectLang()" id="lang" name="langs">
+                                    <option value="CPP" selected>C++</option>
+                                    <option value="C">C</option>
+                                    <option value="PYTHON3">Python 3</option>
+                                    <option value="JAVA">Java</option>
+                                </select>
+                        </div>
+                    </div>
+                     <img src="/images/ide.png" width="30px" style="margin-top: -10px">
+                     <br>
+                     <br>
+
+                    <textarea id="code-screen" name="codes">{{content}}</textarea>
+                    <div class="row" style="font-size: 25px">
+                        
+                        <div class="col-md-4">
+                            <br>
+                            <button type="submit" class="btn btn-success mb-2">RUN CODE</button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row" style="font-size: 25px">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="textarea1">INPUT : </label>
+                                <textarea class="form-control" name="input" id="textarea1" rows="4">{{input}}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="textarea1">OUTPUT : </label>
+                                    <textarea class="form-control" id="textarea2" name="output"
+                                        rows="4">{{output}}</textarea>
+                                </div>
+                            </div>
+                        
+                    </div>
+                    <br><br>
+                    <div class="row" style="font-size: 25px;">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="font-size: medium;">TIME TAKEN : </label>
+                                <input type="text" class="form-control" value="{{timeused}}" name="timeused">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label style="font-size: medium;">MEMORY USED : </label>
+                                <input type="text" class="form-control" value="{{memused}}" name="memused">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                        <br>
+                    </bbr>
+                </div>
+                <div class="col-sm-3 col-xs-2" id="chatbox">
+                    <iframe
+                        src='https://meet.jit.si/{{roomId}}#userInfo.displayName="{{user.name}}"&userInfo.email={{user.email}}&config.prejoinPageEnabled=false&config.requireDisplayName=false&interfaceConfig.SHOW_CHROME_EXTENSION_BANNER=false&config.startWithAudioMuted=true&config.startWithVideoMuted=true'
+                        style="height: 100%; width: 150%"
+                        allow="camera https://meet.jit.si/{{roomId}}; microphone https://meet.jit.si/{{roomId}}"></iframe>
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <br>
+    <hr>
+    <br>
+    <form action="/ide/mail" method="POST">
+        <div class="col-md-8">
+            <label style="font-size: 30px;" for="friends">COLLABORATE WITH FRIENDS</label>
+            <input type="text" class="form-control" id="friends" name="friends">
+            <div id="emailHelp" class="form-text">Enter your friends email address, to send them the URL of this coding
+                workspace.</div>
+        </div>
+        <input type="hidden" name="roomId1" value="{{roomId}}">
+        <!--<script>alert(document.getElementById("roomId1").value);</script>-->
+        <br>
+        <button type="submit" class="btn btn-primary">SUBMIT</button>
+    </form>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/javascript/javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/clike/clike.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/python/python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/mode/css/css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/addon/hint/show-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.4/addon/hint/css-hint.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/mode/pascal/pascal.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/addon/edit/closebrackets.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.61.1/addon/edit/matchbrackets.min.js"></script>
+<script src="/plugins/ot/ot.js"></script>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var cpplang = `#include<iostream>
+using namespace std;
+
+int main () {
+    // your code here
+    cout << "Hello World!" << endl;
+    return 0;
+}`;
+    
+    var clang = `#include<stdio.h>
+
+int main () {
+  // your code here
+  printf("Hello World!");
+  return 0;
+}`;
+
+    var pylang = `# Write Your Code Here
+print("Hello World")`;
+
+    var javalang = `import java.io.*;
+import java.util.*;
+import java.lang.*;
+
+public class VITdost {
+  public static void main(String[] args) {
+    // your code here
+    System.out.println("Hello World!");
+  }
+}`;
+
+    
+    var EditorClient = ot.EditorClient;
+    var SocketIOAdapter = ot.SocketIOAdapter;
+    var CodeMirrorAdapter = ot.CodeMirrorAdapter;
+
+    var socket = io.connect('https://vitdost.herokuapp.com/');
+    socket.emit('joinRoom', { room: "{{roomId}}", username: "{{req.user.name}}" });
+    var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
+        lineNumbers: true,
+        styleActiveLine: true,
+        matchBrackets: true,
+        autoCloseBrackets: true
+    });
+    if(!`{{content}}`) {
+        editor.getDoc().setValue(cpplang);
+    }
+    
+
+    function selectLang() {
+        var modes = document.getElementById("lang").value;
+        if (modes == "CPP") {
+            editor.setOption("mode", "text/x-c++src");
+            editor.getDoc().setValue(cpplang);
+        }
+        else if (modes == "C") {
+            editor.setOption("mode", "text/x-csrc");
+            editor.getDoc().setValue(clang);
+        }
+        else if (modes == "PYTHON3") {
+            editor.setOption("mode", "text/x-python");
+            editor.getDoc().setValue(pylang);
+        }
+        else if (modes == "JAVA") {
+            editor.setOption("mode", "text/x-java");
+            editor.getDoc().setValue(javalang);
+        }
+    }
+    editor.setOption("mode", "text/x-c++src");
+    editor.setOption("theme", "idea");
+
+    
+    var code = $("#code-screen").val();
+
+    var cmClient;
+    function init(str, revision, clients, serverAdapter) {
+        if (!code) {
+            editor.setValue(str);
+        }
+        cmClient = window.cmClient = new EditorClient(
+            revision, clients, serverAdapter, new CodeMirrorAdapter(editor)
+        );
+    };
+    
+    socket.on('doc', function (obj) {
+        init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket));
+    });
+
+    
+</script>

@@ -1,0 +1,129 @@
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2"></div>
+        <div class="col-md-auto">
+            <h1>GPA CALCULATOR</h1>
+        </div>
+        <div class="col col-lg-2"></div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col col-lg-6">
+            <table class="table" id="table">
+                <thead class="table-dark">
+                    <th style="text-align: center;">Grade</th>
+                    <th style="text-align: center;">Credits</th>
+                </thead>
+                <tbody id="courses">
+                    <tr>
+                        <td>
+                            <select class="form-select" onchange="updateGPA()" id="grade1">
+                                <option selected>S</option>
+                                <option>A</option>
+                                <option>B</option>
+                                <option>C</option>
+                                <option>D</option>
+                                <option>E</option>
+                                <option>F</option>
+                                <option>N</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select class="form-select" onchange="updateGPA()" id="cred1">
+                                <option selected>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto">
+                    <button class="btn btn-primary" id="add"><b>ADD NEW COURSE</b></button>
+                </div>
+                <div class="col-md-auto">
+                    <button class="btn btn-primary" id="reset"><b>RESET</b></button>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-1"></div>
+        <div class="col col-lg-5">
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="container-fluid py-5">
+                    <h6 class="display-6 fw-bold">Your Semester GPA</h6>
+                    <h1 id="gpa" class="display-1 fw-bold" style="color: green; text-align:center">10.00</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    var num = 2;
+    var row1 =
+        `<tr>
+            <td>
+                <select class="form-select" onchange="updateGPA()" id="grade`
+    
+    var row2 = `">
+                    <option selected>S</option>
+                    <option>A</option>
+                    <option>B</option>
+                    <option>C</option>
+                    <option>D</option>
+                    <option>E</option>
+                    <option>F</option>
+                    <option>N</option>
+                </select>
+            </td>
+            <td>
+                <select class="form-select" onchange="updateGPA()" id="cred`
+        
+    var row3 = `">
+                    <option selected>4</option>
+                    <option>3</option>
+                    <option>2</option>
+                    <option>1</option>
+                </select>
+            </td>
+        </tr>`
+
+    $("#add").click(function () {
+        $('#courses tr:last').after(row1 + num + row2 + num + row3);
+        // $("#courses").html($("#courses").html() + row1 + num + row2 + num + row3);
+        num++;
+    });
+
+    $("#reset").click(function () {
+        $("#courses").html(row1 + 1 + row2 + 1 + row3);
+        num = 2;
+    });
+
+    var dict = {
+        "S" : 10,
+        "A" : 9,
+        "B" : 8,
+        "C" : 7,
+        "D" : 6,
+        "E" : 5,
+        "F" : 0,
+        "N" : 0
+    }
+
+    var updateGPA = function() {
+        var totcreds = 0;
+        var score = 0;
+        for(var i = 1; i < num; i++) {
+            var str = "cred" + i;
+            var s = "grade" + i;
+            totcreds = totcreds +  Number(document.getElementById(str).value);
+            score = score + (Number(document.getElementById(str).value)*dict[document.getElementById(s).value]);
+        }
+        $("#gpa").html(parseFloat(score/totcreds).toFixed(2));
+    }
+</script>

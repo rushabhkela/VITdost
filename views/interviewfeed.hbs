@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-2"></div>
+        <div class="col col-lg-8">
+            <h1 style="text-align: center;">Interviews</h1>
+            <br>
+            <br>
+            {{#each interviews}}
+            <div class="card text-center">
+                <div class="card-header" style="text-align: left;">
+                    <img src="https://ui-avatars.com/api/?name={{this.username}}" class="rounded-circle" alt="avatar"
+                        width="5%"> &nbsp; <span style="padding-top:40px; font-size: 20px">{{this.username}}</span>
+                </div>
+                <div class="card-body">
+                    <video style="width: 100%; height: 100%" controls>
+                        <source src="{{this.videoLink}}" type="video/webm">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+                <div class="card-footer">
+                    <br>
+                    <p onclick="show('{{this.id}}')" id="viewbutton-{{this.id}}" class="text-primary interviewfeed">View
+                        Comments</p>
+                    <div style="text-align: left; display:none" id="view-{{this.id}}">
+                        {{#each this.comments}}
+                        <p style="font-weight: 500; margin-bottom: -3px">{{this.name}}</p>
+                        <p>{{this.comment}}</p>
+                        {{/each}}
+                    </div>
+                    <br>
+                    <div class="form-group mb-3">
+                        <input name="comment" id="comment-{{this.id}}" type="text" placeholder="Comment"
+                            class="form-control rounded-pill border-0 shadow-sm px-4">
+                    </div>
+                    <p onclick="addComment('{{this.id}}')" class="text-primary interviewfeed">Add Comment</p>
+                </div>
+            </div>
+            {{/each}}
+        </div>
+        <div class="col col-lg-2"></div>
+    </div>
+</div>
+
+<script>
+
+    function show(id) {
+        document.getElementById(('view-' + id)).style.display = 'block';
+        document.getElementById(('viewbutton-' + id)).style.display = 'none';
+    }
+
+
+    function addComment(id) {
+        if (document.getElementById(("comment-" + id)).value != "") {
+            const params = {
+                id: id,
+                message: document.getElementById(("comment-" + id)).value
+            };
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && (this.status == 200 || this.status == 304)) {
+                    console.log(this.responseText);
+
+                    document.getElementById(("view-" + id)).innerHTML = document.getElementById(("view-" + id)).innerHTML + `<p style="font-weight: 500; margin-bottom: -3px">{{user.name}}</p>
+                        <p>` + document.getElementById(("comment-" + id)).value + `</p>`;
+                    document.getElementById(("comment-" + id)).value = "";
+                }
+            };
+            xhttp.open("POST", "/interviews/addcomments/");
+            xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhttp.send(JSON.stringify(params));
+        }
+    }
+</script>

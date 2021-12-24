@@ -1,0 +1,62 @@
+<br>
+<br>
+{{#if user}}
+<form action="/ide/createTask" method="POST">
+    <div class="form-group">
+        <input name="roomname" type="text" required class="form-control" placeholder="Room Name" style="float: right; width: 17.2%; margin-right: 15px; font-size:20px">
+    </div>
+    <br>
+    <br>
+    <div style="float:right;">
+        <button type="submit" class="btn btn-warning" style="margin-right: 15px; font-size:20px">Create a New
+                Workspace</button>
+    </div>
+</form>
+
+{{/if}}
+<br>
+<br>
+<br>
+
+<br>
+
+<div class="container">
+<h1>&nbsp;Saved Workspaces</h1>
+<div class="row">
+{{#if rooms}}
+    {{#each rooms}}
+        <div class="col-sm-2">
+        <a href="/ide/code/{{this._id}}"><img src="/images/workspace.png" alt="workspace" style="width: 100%;"></a>
+        <p style="color: black; font-weight:bolder; font-size:larger; text-align:center">{{this.name}}</p>
+        </div>
+    {{/each}}
+{{else}}
+    <h2><b style="color: lightgray;">&nbsp;No saved workspaces available.</b></h2>
+{{/if}}
+</div>
+</div>
+<br>
+<br>
+<br>
+
+<br>
+<div class="container">
+<h1>&nbsp;Collaborations</h1>
+<div class="row">
+{{#if collabroom}}
+    {{#each collabroom}}
+        <div class="col-sm-2">
+        <a href="/ide/code/{{this.workspaceid}}"><img src="/images/workspace.png" alt="workspace" style="width: 100%;"></a>
+        <p style="color: black; font-weight:bolder; font-size:larger; text-align:center">{{this.workspace}}</p>
+        </div>
+    {{/each}}
+{{else}}
+    <h2><b style="color: lightgray;">&nbsp;No collaborations yet.</b></h2>
+{{/if}}
+</div>
+</div>
+
+
+
+
+
