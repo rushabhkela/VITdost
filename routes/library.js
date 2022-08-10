@@ -74,7 +74,8 @@ router.post('/:id/upload', upload, async (req, res) => {
             var newMaterial = new Material({
                 courseId: course._id,
                 location: data.Location,
-                uploadedBy: req.user._id
+                uploadedBy: req.user._id,
+                title: req.body.name,
             });
             if (req.body.bookOrPaper == "1") {
                 newMaterial.isBook = true;

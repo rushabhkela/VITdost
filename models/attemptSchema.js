@@ -28,7 +28,27 @@ var attemptSchema = new mongoose.Schema({
             comment : String,
             timestamp : Date
         }
-    ]
+    ],
+    thumbsup: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        required: true,
+        default: []
+    },
+    claps: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        required: true,
+        default: []
+    },
+    hundred: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        required: true,
+        default: []
+    },
+    heart: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        required: true,
+        default: []
+    }
 });
 
 module.exports = mongoose.model('Attempt', attemptSchema);

@@ -120,6 +120,10 @@ router.get('/feed', async (req, res) => {
                     comment: c.comment
                 });
             }
+            d.heart = interview.heart.length;
+            d.thumbsup = interview.thumbsup.length;
+            d.hundred = interview.hundred.length;
+            d.claps = interview.claps.length;
             data.push(d);
         }
         console.log(data[0].comments);
@@ -138,6 +142,22 @@ router.post('/addcomments', async (req, res) => {
     interview.comments = temp;
     await interview.save();
     res.status(200).json({ "message": "success" });
+})
+
+router.post('/rateinterview/:id/:type', async (req, res) => {
+    var interview = await Attempt.findOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+    let temp;
+    const {type} = req.params;
+    temp = interview[type.toLowerCase()];
+    let val = temp.length;
+    if(temp.indexOf(req.user._id.toString()) === -1) {
+        temp.push(req.user._id.toString());
+        val++;
+    }
+
+    interview[type.toLowerCase()] = temp;
+    await interview.save();
+    res.status(200).json({"message" : val});
 })
 
 // router.get('/test', async(req, res) => {

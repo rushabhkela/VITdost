@@ -145,6 +145,7 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
+        <img src="/images/logo.png" width="50" style="margin-right: 10px;"/>
         <a class="navbar-brand" href="#"><span style="font-weight: 700;" class="display-6">VITdost</span></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -153,13 +154,27 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-weight: 600; font-size:larger">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/home">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/gpa">GPA Calculator</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Academics
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/gpa">GPA Calculator</a></li>
+                <li><a class="dropdown-item" href="/library">Library</a></li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/library">Library</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDarkDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Placements
+              </a>
+              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+                <li><a class="dropdown-item" href="/ide">Collaborative IDE</a></li>
+                <li><a class="dropdown-item" href="/aptitude">Aptitude Test</a></li>
+              </ul>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle active" href="#" id="navbarDarkDropdownMenuLink" role="button"
@@ -170,9 +185,6 @@
                 <li><a class="dropdown-item" href="/interviews">Take an Interview</a></li>
                 <li><a class="dropdown-item" href="/interviews/feed">Feed</a></li>
               </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/ide">Collaborative IDE</a>
             </li>
           </ul>
           {{#if user}}
@@ -202,34 +214,29 @@
             <div class="col-2">
               <h5>Useful Links</h5>
               <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Home</a></li>
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">GPA Calculator</a></li>
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Library</a></li>
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Interviews</a></li>
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Collaborative IDE</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Aptitude Test</a></li>
+              </ul>
+            </div>
+
+            <div class="col-2">
+              <h5>Support</h5>
+              <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="https://vitdost.freshdesk.com/support/home" class="nav-link p-0 text-muted">Seek Support (faster)</a></li>
+                <li class="nav-item mb-2"><a href="mailto:help.vitdost@gmail.com" class="nav-link p-0 text-muted">Email Us</a></li>
+                <li class="nav-item mb-2"><a href="tel:9834473257" class="nav-link p-0 text-muted">Call Us</a></li>
               </ul>
             </div>
 
             <div class="col-2">
             </div>
-
-            <div class="col-2">
-            </div>
-
-            <div class="col-4 offset-1">
-              <h5>Developer</h5>
-              <p>Rushabh Kela</p>
-              <div style="font-weight: 300; font-size:larger">
-                <a style="color: black;" href="https://www.linkedin.com/in/rushabh-kela/"><i class="fa fa-linkedin-square"></i></a>&nbsp;
-                <a style="color: black;" href="https://www.instagram.com/rushabh.k17/"><i class="fa fa-instagram"></i></a>&nbsp;
-                <a style="color: black;" href="https://github.com/rushabhkela"><i class="fa fa-github"></i></a>&nbsp;
-                <a style="color: black;" href="#"><i class="fa fa-chrome"></i></a>&nbsp;
-              </div>
-            </div>
           </div>
 
           <div class="d-flex justify-content-between py-4 my-4 border-top">
-            <p>&copy; 2021 VITdost. All rights reserved.</p>
+            <p>&copy; 2022 VITdost. All rights reserved.</p>
             <ul class="list-unstyled d-flex">
               <li class="ms-3"></li>
               <li class="ms-3"></li>

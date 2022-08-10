@@ -8,11 +8,6 @@ var subjectSchema = new mongoose.Schema({
     courseName: {
         type: String,
         required: true
-    },
-    isVerified: {
-        type: Boolean,
-        required: true,
-        default: false
     }
 });
 

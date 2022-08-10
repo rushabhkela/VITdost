@@ -6,7 +6,7 @@
             <br>
             <br>
             {{#each interviews}}
-            <div class="card text-center">
+            <div class="card">
                 <div class="card-header" style="text-align: left;">
                     <img src="https://ui-avatars.com/api/?name={{this.username}}" class="rounded-circle" alt="avatar"
                         width="5%"> &nbsp; <span style="padding-top:40px; font-size: 20px">{{this.username}}</span>
@@ -19,20 +19,53 @@
                 </div>
                 <div class="card-footer">
                     <br>
-                    <p onclick="show('{{this.id}}')" id="viewbutton-{{this.id}}" class="text-primary interviewfeed">View
-                        Comments</p>
-                    <div style="text-align: left; display:none" id="view-{{this.id}}">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div style="display: flex; gap: 10px;">
+                            <div style="display: flex; gap: 5px; border: 1px solid #d9d9d9; padding: 5px; border-radius: 4px; cursor: pointer"
+                                onclick="rate('thumbsup', '{{this.id}}')">
+                                &#128077;
+                                <div id="rate-{{this.id}}-thumbsup">{{this.thumbsup}}</div>
+                            </div>
+                            <div style="display: flex; gap: 5px; border: 1px solid #d9d9d9; padding: 5px; border-radius: 4px; cursor: pointer"
+                                onclick="rate('claps', '{{this.id}}')">&#128079;
+                                <div id="rate-{{this.id}}-claps">{{this.claps}}</div>
+                            </div>
+
+
+                            <div style="display: flex; gap: 5px; border: 1px solid #d9d9d9; padding: 5px; border-radius: 4px; cursor: pointer"
+                                onclick="rate('hundred', '{{this.id}}')">
+                                &#128175;
+                                <div id="rate-{{this.id}}-hundred">{{this.hundred}}</div>
+                            </div>
+                            <div style="display: flex; gap: 5px; border: 1px solid #d9d9d9; padding: 5px; border-radius: 4px; cursor: pointer"
+                                onclick="rate('heart', '{{this.id}}')">&#10084;
+                                <div id="rate-{{this.id}}-heart">{{this.heart}}</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <button onclick="show('{{this.id}}')" id="viewbutton-{{this.id}}"
+                                class="btn btn-primary">View
+                                Comments</button>
+                        </div>
+                    </div>
+
+                    <br>
+                    <div style="text-align: left; display:none; height: 50px; overflow-y: scroll;"
+                        id="view-{{this.id}}">
                         {{#each this.comments}}
                         <p style="font-weight: 500; margin-bottom: -3px">{{this.name}}</p>
                         <p>{{this.comment}}</p>
                         {{/each}}
                     </div>
                     <br>
-                    <div class="form-group mb-3">
+                    <div class="form-group mb-3" style="display:flex; justify-content:space-between;">
                         <input name="comment" id="comment-{{this.id}}" type="text" placeholder="Comment"
-                            class="form-control rounded-pill border-0 shadow-sm px-4">
+                            class="form-control border-0 shadow-sm px-3" style="width: 80%;">
+                        <button style="margin-top: 5px; width: 145px;" onclick="addComment('{{this.id}}')"
+                            class="btn btn-primary interviewfeed">Add Comment</button>
                     </div>
-                    <p onclick="addComment('{{this.id}}')" class="text-primary interviewfeed">Add Comment</p>
+
                 </div>
             </div>
             {{/each}}
@@ -46,6 +79,18 @@
     function show(id) {
         document.getElementById(('view-' + id)).style.display = 'block';
         document.getElementById(('viewbutton-' + id)).style.display = 'none';
+    }
+
+    function rate(type, id) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && (this.status == 200 || this.status == 304)) {
+                document.getElementById(`rate-${id}-${type}`).innerHTML = JSON.parse(this.response).message;
+            }
+        };
+        xhttp.open("POST", `/interviews/rateinterview/${id}/${type}`);
+        xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify({}));
     }
 
 
