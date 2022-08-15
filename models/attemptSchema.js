@@ -22,6 +22,11 @@ var attemptSchema = new mongoose.Schema({
         required: true,
         default: false
     },
+    isPublic: {
+        type: Boolean,
+        required: true,
+        default: true
+    },
     comments: [
         {
             user : mongoose.SchemaTypes.ObjectId,
