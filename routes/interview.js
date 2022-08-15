@@ -87,6 +87,7 @@ router.post('/finish', upload.any(), async (req, res) => {
                 ofUser: req.user._id,
                 questionId: question._id,
                 videoLink: data.Location,
+                isPublic: req.body.ispublic,
                 timestamp: new Date()
             });
             await newAttempt.save();
@@ -104,7 +105,7 @@ router.get('/feed', async (req, res) => {
         res.redirect('/users/login');
     }
     else {
-        const interviews = await Attempt.find({ isFailed: false });
+        const interviews = await Attempt.find({ isFailed: false, isPublic: true });
         var data = Array();
         for (let interview of interviews) {
             var d = {};
@@ -126,8 +127,46 @@ router.get('/feed', async (req, res) => {
             d.claps = interview.claps.length;
             data.push(d);
         }
-        console.log(data[0].comments);
         res.render('interviewfeed', { title: 'VITdost - Interviews', interviews: data });
+    }
+})
+
+router.get('/feed/:id', async (req, res) => {
+    if (!req.user) {
+        res.redirect('/users/login');
+    }
+    else {
+        let interviews;
+        if(req.user._id.toString() === req.params.id)
+            interviews = await Attempt.find({ isFailed: false, ofUser: mongoose.Types.ObjectId(req.params.id)});
+        else
+            interviews = await Attempt.find({ isFailed: false, isPublic: true, ofUser: mongoose.Types.ObjectId(req.params.id)});
+
+        var data = Array();
+        for (let interview of interviews) {
+            var d = {};
+            var user = await User.findOne({ _id: interview.ofUser });
+            d.id = (interview._id).toString();
+            d.username = user.name;
+            d.videoLink = interview.videoLink;
+            d.comments = Array();
+            for (let c of interview.comments) {
+                user = await User.findOne({ _id: c.user });
+                d.comments.push({
+                    name: user.name,
+                    comment: c.comment
+                });
+            }
+            d.heart = interview.heart.length;
+            d.thumbsup = interview.thumbsup.length;
+            d.hundred = interview.hundred.length;
+            d.claps = interview.claps.length;
+            data.push(d);
+        }
+        // if(data.length === 0) 
+        //     res.render('interviewfeed', { title: 'VITdost - Interviews', interviews: data, noint: 1 });
+        // else
+            res.render('interviewfeed', { title: 'VITdost - Interviews', interviews: data});
     }
 })
 

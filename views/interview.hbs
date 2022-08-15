@@ -36,9 +36,20 @@
 							</h3>
 							<h4 id="timer" class="fw-bold" style="color: green; text-align:center">1m 00s</h4>
 							<div id="uupload">
-							<button type="button" id="ubtn" class="btn btn-danger" style="margin-left: 70px; display:none;" onclick="onBtnStopClicked()"><b>Finish Interview</b></button>
+								<button type="button" id="ubtn" class="btn btn-danger"
+									style="margin-left: 70px; display:none;" onclick="onBtnStopClicked()"><b>Finish
+										Interview</b></button>
 							</div>
 						</div>
+						<div style="margin-left:20%;">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked onchange="togglePubPvt()">
+								<label class="form-check-label" for="flexCheckChecked">
+									Make this interview public
+								</label>
+							</div>
+						</div>
+
 					</div>
 				</div>
 			</div>
@@ -51,22 +62,24 @@
 
 	<script src="/javascripts/interview.js"></script>
 	<script>
+		/*
 		var flag = 0;
 		document.addEventListener('visibilitychange', function (ev) {
 			console.log('visibilitychange', document.hidden);
 			 if(document.hidden) {
-			    window.location.href = '/interviews/fail/{{question._id}}';
+				window.location.href = '/interviews/fail/{{question._id}}';
 			}
 		});
+		*/
 
-		var fun2 = function() {
-			onBtnStopClicked();
+		var fun2 = function () {
+			// onBtnStopClicked();
 		}
 
-		var fun1 = function() {
-			onBtnRecordClicked();
+		var fun1 = function () {
+			// onBtnRecordClicked();
 			document.getElementById("ubtn").style.display = "block";
-			countDownDate = new Date().getTime() + 180000;
+			countDownDate = new Date().getTime() + 18000000;
 			var k = setInterval(function () {
 				var now = new Date().getTime();
 				var distance = countDownDate - now;
@@ -85,7 +98,7 @@
 			}, 1000);
 		}
 
-		var countDownDate = new Date().getTime() + 60000;
+		var countDownDate = new Date().getTime() + 6000000;
 		var x = setInterval(function () {
 			var now = new Date().getTime();
 			var distance = countDownDate - now;

@@ -1,10 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col col-lg-2"></div>
-        <div class="col col-lg-8">
-            <h1 style="text-align: center;">Interviews</h1>
-            <br>
-            <br>
+        <div class="col col-lg-4">
+            <div class="card" style="height: 84vh; overflow:scroll; width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">Search for users</h5>
+                    <input type="text" name="search" class="form-control" id="search" placeholder="Name"
+                        onkeyup="searchPeople()">
+                    <ul class="list-group" id="searchresults">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col col-lg-8" style="height: 85vh; overflow:scroll;">
+
             {{#each interviews}}
             <div class="card">
                 <div class="card-header" style="text-align: left;">
@@ -50,7 +59,7 @@
                         </div>
                     </div>
 
-                    <br>
+
                     <div style="text-align: left; display:none; height: 50px; overflow-y: scroll;"
                         id="view-{{this.id}}">
                         {{#each this.comments}}
@@ -68,9 +77,9 @@
 
                 </div>
             </div>
+            <br>
             {{/each}}
         </div>
-        <div class="col col-lg-2"></div>
     </div>
 </div>
 
@@ -113,6 +122,36 @@
             xhttp.open("POST", "/interviews/addcomments/");
             xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
             xhttp.send(JSON.stringify(params));
+        }
+    }
+
+    var searchPeople = function () {
+        var q = $("#search").val();
+        if (q == "") {
+            document.getElementById("searchresults").innerHTML = "";
+        }
+        if (q != "") {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && (this.status == 200 || this.status == 304)) {
+                    result = JSON.parse(this.responseText);
+                    var html = `
+                        
+                        `;
+                    for (var i = 0; i < result.length; i++) {
+                        html +=
+                            `<li class="list-group-item">
+                                <a href="/interviews/feed/${result[i]._id}" style="text-decoration:none; cursor: pointer">
+                            <img src="https://ui-avatars.com/api/?name=${result[i].name}" class="rounded-circle"
+                                alt="avatar" width="12%"> &nbsp; <span
+                                style="font-size: 18px">${result[i].name}</span></a>
+                        </li>`;
+                    }
+                    document.getElementById("searchresults").innerHTML = html;
+                }
+            };
+            xhttp.open("GET", "/users/search/" + q);
+            xhttp.send();
         }
     }
 </script>

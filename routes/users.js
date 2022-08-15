@@ -9,7 +9,7 @@ router.route('/login')
   .post(passport.authenticate('local', {
     failureRedirect: '/users/login'
   }), async (req, res) => {
-    res.redirect('/home');
+    res.redirect('/');
   });
 
 router.route('/register')
@@ -36,7 +36,24 @@ router.route('/register')
 
 router.get('/logout', function (req, res) {
   req.logout();
-  res.redirect('/home');
+  res.redirect('/');
+});
+
+router.get('/search/:q', async (req, res) => {
+  try {
+      var q = req.params.q;
+      try {
+          const users = await User.find({ name: RegExp(q, 'i')}, {}).select('name');
+          res.status(200).json(users);
+      }
+      catch (e) {
+          const users = [];
+          res.status(200).json(users);
+      }
+  }
+  catch (err) {
+      res.status(500).json({});
+  }
 });
 
 module.exports = router;

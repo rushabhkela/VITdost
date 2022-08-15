@@ -31,6 +31,7 @@ var count = 0;
 var localStream = null;
 var soundMeter = null;
 var micNumber = 0;
+var makeInterviewPublic = true;
 
 function onShareScreen() {
 	if (!navigator.mediaDevices.getDisplayMedia) {
@@ -203,6 +204,7 @@ function onBtnRecordClicked() {
 			let request = new XMLHttpRequest();
 			form.append("video-blob", blob);
 			form.append("question", document.getElementById('quest').innerHTML);
+			form.append("ispublic", makeInterviewPublic);
 			request.open("POST", "/interviews/finish", true);
 			request.send(form); // hits the route but doesn't send the file
 			request.onload = function () {
@@ -332,6 +334,11 @@ SoundMeter.prototype.stop = function () {
 	this.mic.disconnect();
 	this.script.disconnect();
 };
+
+
+function togglePubPvt() {
+	makeInterviewPublic = !makeInterviewPublic;
+}
 
 
 

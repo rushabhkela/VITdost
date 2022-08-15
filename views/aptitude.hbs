@@ -1,0 +1,96 @@
+<div class="container">
+    
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            {{#if nomoreques}}
+                <h2 style="text-align:center;">No more questions</h2>
+            {{else}}
+                <h2 style="text-align:center;">Aptitude Test</h2>
+            {{/if}}
+            <br>
+
+            {{#if nomoreques}}
+            {{else}}
+            {{#each ques}}
+            <div class="card">
+                <div class="card-body">
+                    <p style="font-weight:600; font-size:large;" class="card-title">{{this.question}}</p>
+                    <div class="form-check" id="{{this._id}}-a">
+                        <input class="form-check-input" type="radio" name="r-{{this.correctOpt}}"
+                            onchange="check('{{this._id}}', 'a', '{{this.correctOpt}}')">
+                        <label class="form-check-label">
+                            <b>{{this.optA}}</b>
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{this._id}}-b">
+                        <input class="form-check-input" type="radio" name="r-{{this.correctOpt}}"
+                            onchange="check('{{this._id}}', 'b', '{{this.correctOpt}}')">
+                        <label class="form-check-label">
+                            <b>{{this.optB}}</b>
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{this._id}}-c">
+                        <input class="form-check-input" type="radio" name="r-{{this.correctOpt}}"
+                            onchange="check('{{this._id}}', 'c', '{{this.correctOpt}}')">
+                        <label class="form-check-label">
+                            <b>{{this.optC}}</b>
+                        </label>
+                    </div>
+                    <div class="form-check" id="{{this._id}}-d">
+                        <input class="form-check-input" type="radio" name="r-{{this.correctOpt}}"
+                            onchange="check('{{this._id}}', 'd', '{{this.correctOpt}}')">
+                        <label class="form-check-label">
+                            <b>{{this.optD}}</b>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {{/each}}
+            {{/if}}
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div style="display:flex; justify-content:space-between">
+                <a class="page-link" href="" id="prevbtn" aria-label="Previous" disabled>
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                {{#if nomoreques}}
+                {{else}}
+                <a class="page-link" href="" id="nextbtn" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+                {{/if}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let url = window.location.href;
+    url = url.split("/");
+    if (url.length === 5) {
+        let currPos = parseInt(url[4]);
+        document.getElementById("prevbtn").href = `/aptitude/${currPos - 1 === 0 ? 1 : currPos - 1}`;
+        document.getElementById("nextbtn").href = `/aptitude/${currPos + 1}`;
+    }
+    if (url.length === 4) {
+        document.getElementById("nextbtn").href = `/aptitude/2`;
+    }
+
+    const check = (id, option, correct) => {
+        const options = ['a', 'b', 'c', 'd'];
+        for (let opt of options) {
+            if (opt === correct) {
+                document.getElementById(`${id}-${opt}`).style.color = 'green';
+            }
+            else {
+                document.getElementById(`${id}-${opt}`).style.color = 'red';
+            }
+        }
+    }
+</script>

@@ -20,6 +20,7 @@ var libraryRouter = require('./routes/library');
 var gpaRouter = require('./routes/gpa');
 var interviewRouter = require('./routes/interview');
 var ideRouter = require('./routes/ide');
+const aptRouter = require('./routes/aptitude');
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = process.env.MONGODB_URI;
@@ -40,6 +41,7 @@ global.Question = require('./models/questionSchema');
 global.Attempt = require('./models/attemptSchema');
 global.Code = require('./models/codeSchema');
 global.Collab = require('./models/collabSchema');
+global.AptiQuestions = require('./models/aptiSchema');
 
 var app = express();
 
@@ -76,6 +78,7 @@ app.use('/library', libraryRouter);
 app.use('/gpa', gpaRouter);
 app.use('/interviews', interviewRouter);
 app.use('/ide', ideRouter);
+app.use('/aptitude', aptRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
