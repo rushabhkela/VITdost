@@ -62,7 +62,6 @@
 
 	<script src="/javascripts/interview.js"></script>
 	<script>
-		/*
 		var flag = 0;
 		document.addEventListener('visibilitychange', function (ev) {
 			console.log('visibilitychange', document.hidden);
@@ -70,16 +69,16 @@
 				window.location.href = '/interviews/fail/{{question._id}}';
 			}
 		});
-		*/
+	
 
 		var fun2 = function () {
-			// onBtnStopClicked();
+			onBtnStopClicked();
 		}
 
 		var fun1 = function () {
-			// onBtnRecordClicked();
+			onBtnRecordClicked();
 			document.getElementById("ubtn").style.display = "block";
-			countDownDate = new Date().getTime() + 18000000;
+			countDownDate = new Date().getTime() + 180000;
 			var k = setInterval(function () {
 				var now = new Date().getTime();
 				var distance = countDownDate - now;
@@ -98,7 +97,7 @@
 			}, 1000);
 		}
 
-		var countDownDate = new Date().getTime() + 6000000;
+		var countDownDate = new Date().getTime() + 15000;
 		var x = setInterval(function () {
 			var now = new Date().getTime();
 			var distance = countDownDate - now;
