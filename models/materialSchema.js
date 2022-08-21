@@ -23,6 +23,10 @@ var materialSchema = new mongoose.Schema({
     uploadedBy : {
         type: mongoose.SchemaTypes.ObjectId,
         required: true
+    },
+    title: {
+        type: String,
+        required: true
     }
 });
 

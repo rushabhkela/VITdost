@@ -26,7 +26,7 @@ router.get('/', async (req, res) => {
         res.redirect('/users/login');
     }
     else {
-        var courses = await Subject.find({ isVerified: true });
+        var courses = await Subject.find({});
         var sendInfo = Array();
         for (let course of courses) {
             var ele = {};
@@ -58,7 +58,7 @@ router.post('/:id/upload', upload, async (req, res) => {
     const file = req.file;
     const myFile = file.originalname;
     const course = await Subject.findOne({ courseCode: req.params.id });
-    if (!course || course.isVerified == false) {
+    if (!course) {
         res.redirect('/error');
     }
     else {

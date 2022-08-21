@@ -34,7 +34,7 @@
                         <div class="modal-body">
                             <ul style="color: black;">
                                 {{#each this.books}}
-                                <li><a href="{{this.location}}" style="text-decoration:none; color:blue;">View</a></li>
+                                <li>{{this.title}} - <a href="{{this.location}}" style="text-decoration:none; color:blue;">View</a></li>
                                 {{/each}}
                             </ul>
                         </div>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="modal-body">
                             {{#each this.papers}}
-                                <li>Paper - <a href="{{this.location}}" style="text-decoration:none; color:blue;">Link</a></li>
+                                <li>{{this.title}} - <a href="{{this.location}}" style="text-decoration:none; color:blue;">{{this.title}} - View</a></li>
                             {{/each}}
                         </div>
                     </div>
