@@ -202,6 +202,9 @@ router.route('/mail')
         for(let user of temp) {
             var u = await User.findOne({email : user.trim()});
             var w = await Code.findOne({_id : mongoose.Types.ObjectId(req.body.roomId1)});
+            var check = await Collab.findOne({workspaceid: mongoose.Types.ObjectId(req.body.roomId1), userid: u._id});
+            if(check)
+                continue;
             var newCollab = new Collab({
                 workspaceid : mongoose.Types.ObjectId(req.body.roomId1),
                 workspace : w.name,
