@@ -107,7 +107,6 @@ router.route('/code/:id')
                     var urlOfCode = response.data.status_update_url;
                     var k = response.data.request_status.code;
                     while (k != 'REQUEST_COMPLETED' && k != 'REQUEST_FAILED') {
-                        console.log(k);
                         await axios.get(urlOfCode, {
                             headers: {
                                 'client-secret': process.env.HACKEREARTH_API_KEY

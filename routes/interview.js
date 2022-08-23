@@ -65,9 +65,6 @@ router.get('/submit', async (req, res) => {
 
 
 router.post('/finish', upload.any(), async (req, res) => {
-    console.log(req.files);
-    console.log(req.body.question);
-
     const question = await Question.findOne({ question: req.body.question });
     const temp = await Attempt.findOne({ questionId: question._id, ofUser: req.user._id });
     if (temp != null) {

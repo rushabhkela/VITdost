@@ -37,7 +37,7 @@
 							<h4 id="timer" class="fw-bold" style="color: green; text-align:center">1m 00s</h4>
 							<div id="uupload">
 								<button type="button" id="ubtn" class="btn btn-danger"
-									style="margin-left: 70px; display:none;" onclick="onBtnStopClicked()"><b>Finish
+									style="margin-left: 70px; display:none;" onclick="fun2()"><b>Finish
 										Interview</b></button>
 							</div>
 						</div>
@@ -63,8 +63,8 @@
 	<script src="/javascripts/interview.js"></script>
 	<script>
 		var flag = 0;
+		var stopTimer = 0;
 		document.addEventListener('visibilitychange', function (ev) {
-			console.log('visibilitychange', document.hidden);
 			 if(document.hidden) {
 				window.location.href = '/interviews/fail/{{question._id}}';
 			}
@@ -72,6 +72,7 @@
 	
 
 		var fun2 = function () {
+			stopTimer = 1;
 			onBtnStopClicked();
 		}
 
@@ -90,7 +91,7 @@
 					document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 				}
 
-				if (distance < 0) {
+				if (distance < 0 || stopTimer) {
 					clearInterval(k);
 					fun2();
 				}
